@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>One Bedroom Apartment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    .apartment-info {
+      padding: 2rem;
+      background: white;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slide img {
+      width: 100%;
+      height: auto;
+      max-height: 600px;
+      object-fit: contain;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .details {
+      margin-top: 1rem;
+    }
+
+    .details h2 {
+      color: orange;
+      margin-top: 0;
+    }
+
+    .features {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .feature-box {
+      background: #fff7ed;
+      padding: 1rem;
+      border-left: 4px solid orange;
+      border-radius: 8px;
+    }
+
+    .book-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: orange;
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .book-btn:hover {
+      background: #e38c00;
+    }
+
+    .house-rules {
+      background: #fff9f0;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-top: 3px solid orange;
+    }
+
+    .house-rules h2 {
+      color: orange;
+      margin-bottom: 1rem;
+    }
+
+    .house-rules h3 {
+      margin-top: 1.5rem;
+      color: #333;
+    }
+
+    .house-rules ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+    }
+
+    .reviews {
+      padding: 2rem;
+      background: #fff;
+    }
+
+    #reviewList {
+      margin-bottom: 1.5rem;
+    }
+
+    .review-item {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    form button {
+      padding: 0.7rem 2rem;
+      border: none;
+      background: orange;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      margin-top: 2rem;
+    }
+
+    /* Lightbox Styles */
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    #lightbox .nav {
+      position: absolute;
+      top: 50%;
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+      padding: 1rem;
+      user-select: none;
+    }
+
+    #lightbox .prev { left: 30px; }
+    #lightbox .next { right: 30px; }
+  </style>
+</head>
+<body>
+
+  <section class="apartment-info">
+    <div class="slider" id="slider">
+      <div class="slides" id="slides">
+        <div class="slide"><img src="./CbyIfeolu-104.jpg" alt="Apartment 1" /></div>
+        <div class="slide"><img src="https://source.unsplash.com/800x500/?bedroom" alt="Apartment 2" /></div>
+        <div class="slide"><img src="https://source.unsplash.com/800x500/?apartment,living-room" alt="Apartment 3" /></div>
+      </div>
+    </div>
+
+    <div class="details">
+      <h2>₦250,000/month</h2>
+      <p><strong>Location:</strong> Omoniyi Estate, Akure, Nigeria</p>
+
+      <div class="features">
+        <div class="feature-box"><strong>✓</strong> Spacious Bedroom</div>
+        <div class="feature-box"><strong>✓</strong> Ensuite Bathroom</div>
+        <div class="feature-box"><strong>✓</strong> Fully Equipped Kitchen</div>
+        <div class="feature-box"><strong>✓</strong> Smart TV & Netflix</div>
+        <div class="feature-box"><strong>✓</strong> High-Speed Wi-Fi</div>
+        <div class="feature-box"><strong>✓</strong> 24/7 Security & CCTV</div>
+        <div class="feature-box"><strong>✓</strong> Private Parking</div>
+        <div class="feature-box"><strong>✓</strong> Air Conditioning</div>
+      </div>
+
+      <a href="#" class="book-btn">Book Now</a>
+    </div>
+  </section>
+
+  <section class="house-rules">
+    <h2>House Rules & Guidelines</h2>
+
+    <h3>CHECK IN AND CHECK OUT</h3>
+    <ul>
+      <li>Check-in: from 14:00</li>
+      <li>Check-out: before 12:00pm</li>
+      <li>Keys received from manager or host upon arrival, and returned upon departure</li>
+    </ul>
+
+    <h3>DURING YOUR STAY</h3>
+    <ul>
+      <li>Maximum 4 guests for the mini flat, 6 for 2-bedroom flat</li>
+      <li>Additional guests must be discussed and approved by the host</li>
+      <li>No pets allowed</li>
+      <li>No smoking inside</li>
+      <li>No parties or events unless approved by host</li>
+    </ul>
+
+    <h3>ADDITIONAL RULES / COMMENTS</h3>
+    <ul>
+      <li>Proof of ID required before arrival</li>
+      <li>Max 2 cars per unit inside the property</li>
+      <li>Smoking is only allowed in the designated smoking area</li>
+      <li>Guests are responsible for the care of the flat and furniture</li>
+      <li>Any damage may result in loss of deposit and legal proceedings</li>
+      <li>Please be mindful of the neighbourhood, especially regarding music volume</li>
+    </ul>
+
+    <p><strong>Our apartments are designed to make you feel comfortable and safe at home.<br>
+    We hope you enjoy your stay at Chez Nous Chez Vous Apartments. Do not hesitate to contact us if you need anything!</strong></p>
+  </section>
+
+  <section class="reviews">
+    <h2 style="color: orange;">Customer Reviews</h2>
+    <div id="reviewList">Loading reviews...</div>
+
+    <h3>Leave a Review</h3>
+    <form id="reviewForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="message" placeholder="Your Review" required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Chez Nous Chez Vous Apartments</p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span class="nav prev">&#10094;</span>
+    <img src="" id="lightbox-img" />
+    <span class="nav next">&#10095;</span>
+  </div>
+<script>
+  const productId = "room-a"; // Change this ID per room: room-a, room-b, etc.
+
+  const reviewForm = document.getElementById("reviewForm");
+  const reviewList = document.getElementById("reviewList");
+
+  // Load Reviews
+  async function loadReviews() {
+    try {
+      const res = await fetch(`/api/getReviews?productId=${productId}`);
+      const reviews = await res.json();
+
+      if (!Array.isArray(reviews) || reviews.length === 0) {
+        reviewList.innerHTML = "<p>No reviews yet.</p>";
+        return;
+      }
+
+      reviewList.innerHTML = reviews.map(r => `
+        <div class="review-item">
+          <strong>${r.name}</strong>
+          <p>${r.message}</p>
+        </div>
+      `).join('');
+    } catch (err) {
+      reviewList.innerHTML = "<p>Error loading reviews.</p>";
+    }
+  }
+
+  // Submit Review
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const message = document.getElementById("message").value.trim();
+    if (!name || !message) return alert("All fields are required!");
+
+    try {
+      await fetch("/api/submitReview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message, productId })
+      });
+
+      reviewForm.reset();
+      loadReviews();
+    } catch (err) {
+      alert("Failed to submit review.");
+    }
+  });
+
+  loadReviews();
+
+  // ========== IMAGE SLIDER LOGIC ==========
+  let currentIndex = 0;
+  const slidesContainer = document.getElementById("slides");
+  const totalSlides = slidesContainer.children.length;
+
+  function updateSlider() {
+    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateSlider();
+  }, 6000);
+
+  // ========== LIGHTBOX LOGIC ==========
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const images = document.querySelectorAll(".slide img");
+  const nextBtn = document.querySelector(".lightbox .next");
+  const prevBtn = document.querySelector(".lightbox .prev");
+
+  let lightboxIndex = 0;
+
+  // Show lightbox when image is clicked
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = img.src;
+      lightboxIndex = index;
+    });
+  });
+
+  // Navigate next
+  nextBtn.onclick = () => {
+    lightboxIndex = (lightboxIndex + 1) % images.length;
+    lightboxImg.src = images[lightboxIndex].src;
+  };
+
+  // Navigate prev
+  prevBtn.onclick = () => {
+    lightboxIndex = (lightboxIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[lightboxIndex].src;
+  };
+
+  // Close lightbox when clicking background or pressing Escape
+  lightbox.onclick = (e) => {
+    if (e.target === lightbox || e.target === lightboxImg) {
+      lightbox.style.display = "none";
+    }
+  };
+
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.style.display === "flex") {
+      if (e.key === "ArrowRight") nextBtn.click();
+      if (e.key === "ArrowLeft") prevBtn.click();
+      if (e.key === "Escape") lightbox.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+</html>

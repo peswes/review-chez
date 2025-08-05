@@ -1,0 +1,16 @@
+{
+  "name": "bedroom_apartment",
+  "version": "1.0.0",
+  "description": "One Bedroom Apartment Booking System",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["booking", "apartment", "vercel", "mongodb"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.18.0"
+  }
+}

@@ -182,6 +182,25 @@
 
     #lightbox .prev { left: 30px; }
     #lightbox .next { right: 30px; }
+    
+#lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10000;
+  transition: background 0.3s ease;
+}
+
+#lightbox .close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
   </style>
 </head>
 <body>
@@ -190,8 +209,8 @@
     <div class="slider" id="slider">
       <div class="slides" id="slides">
         <div class="slide"><img src="./CbyIfeolu-104.jpg" alt="Apartment 1" /></div>
-        <div class="slide"><img src="https://source.unsplash.com/800x500/?bedroom" alt="Apartment 2" /></div>
-        <div class="slide"><img src="https://source.unsplash.com/800x500/?apartment,living-room" alt="Apartment 3" /></div>
+        <div class="slide"><img src="./CbyIfeolu-104.jpg" alt="Apartment 2" /></div>
+        <div class="slide"><img src="./CbyIfeolu-104.jpg" alt="Apartment 3" /></div>
       </div>
     </div>
 
@@ -263,12 +282,14 @@
     <p>&copy; 2025 Chez Nous Chez Vous Apartments</p>
   </footer>
 
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <span class="nav prev">&#10094;</span>
-    <img src="" id="lightbox-img" />
-    <span class="nav next">&#10095;</span>
-  </div>
+<!-- Lightbox -->
+<div id="lightbox">
+  <span class="nav prev">&#10094;</span>
+  <img src="" id="lightbox-img" />
+  <span class="nav next">&#10095;</span>
+  <span class="nav close" id="lightbox-close">&#10006;</span>
+</div>
+
 <script>
   const productId = "room-a"; // Change this ID per room: room-a, room-b, etc.
 
@@ -333,51 +354,84 @@
     currentIndex = (currentIndex + 1) % totalSlides;
     updateSlider();
   }, 6000);
+// ========== LIGHTBOX LOGIC ==========
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const images = document.querySelectorAll(".slide img");
+const nextBtn = document.querySelector("#lightbox .next");
+const prevBtn = document.querySelector("#lightbox .prev");
+const closeBtn = document.getElementById("lightbox-close");
 
-  // ========== LIGHTBOX LOGIC ==========
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const images = document.querySelectorAll(".slide img");
-  const nextBtn = document.querySelector(".lightbox .next");
-  const prevBtn = document.querySelector(".lightbox .prev");
+let lightboxIndex = 0;
 
-  let lightboxIndex = 0;
-
-  // Show lightbox when image is clicked
-  images.forEach((img, index) => {
-    img.addEventListener("click", () => {
-      lightbox.style.display = "flex";
-      lightboxImg.src = img.src;
-      lightboxIndex = index;
-    });
+// Show lightbox when image is clicked
+images.forEach((img, index) => {
+  img.addEventListener("click", () => {
+    lightbox.style.display = "flex";
+    lightboxImg.src = img.src;
+    lightboxIndex = index;
   });
+});
 
-  // Navigate next
-  nextBtn.onclick = () => {
-    lightboxIndex = (lightboxIndex + 1) % images.length;
-    lightboxImg.src = images[lightboxIndex].src;
-  };
+// Navigate next
+nextBtn.onclick = () => {
+  lightboxIndex = (lightboxIndex + 1) % images.length;
+  lightboxImg.src = images[lightboxIndex].src;
+};
 
-  // Navigate prev
-  prevBtn.onclick = () => {
-    lightboxIndex = (lightboxIndex - 1 + images.length) % images.length;
-    lightboxImg.src = images[lightboxIndex].src;
-  };
+// Navigate prev
+prevBtn.onclick = () => {
+  lightboxIndex = (lightboxIndex - 1 + images.length) % images.length;
+  lightboxImg.src = images[lightboxIndex].src;
+};
 
-  // Close lightbox when clicking background or pressing Escape
-  lightbox.onclick = (e) => {
-    if (e.target === lightbox || e.target === lightboxImg) {
-      lightbox.style.display = "none";
+// Close button
+closeBtn.onclick = () => {
+  lightbox.style.display = "none";
+};
+
+// Click outside image to close
+lightbox.onclick = (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = "none";
+  }
+};
+
+// Keyboard support
+document.addEventListener("keydown", (e) => {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowRight") nextBtn.click();
+    if (e.key === "ArrowLeft") prevBtn.click();
+    if (e.key === "Escape") closeBtn.click();
+  }
+});
+
+lightbox.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchmove", (e) => {
+  endX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchend", (e) => {
+  const diff = endX - startX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      prevBtn.click(); // Swipe right
+    } else {
+      nextBtn.click(); // Swipe left
     }
-  };
+  } else if (e.target === lightbox) {
+    // If swipe was too short, check if user tapped background to close
+    lightbox.style.display = "none";
+  }
 
-  document.addEventListener("keydown", (e) => {
-    if (lightbox.style.display === "flex") {
-      if (e.key === "ArrowRight") nextBtn.click();
-      if (e.key === "ArrowLeft") prevBtn.click();
-      if (e.key === "Escape") lightbox.style.display = "none";
-    }
-  });
+  startX = 0;
+  endX = 0;
+});
+
+
 </script>
 
 </body>

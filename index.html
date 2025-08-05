@@ -299,7 +299,7 @@
   // Load Reviews
   async function loadReviews() {
     try {
-      const res = await fetch(`/api/getReviews?productId=${productId}`);
+      const res = await fetch(`https://review-chez.vercel.app/api/getReviews?productId=${productId}`);
       const reviews = await res.json();
 
       if (!Array.isArray(reviews) || reviews.length === 0) {
@@ -326,7 +326,7 @@
     if (!name || !message) return alert("All fields are required!");
 
     try {
-      await fetch("/api/submitReview", {
+      await fetch("https://review-chez.vercel.app/api/submitReview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, message, productId })
